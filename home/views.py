@@ -11,3 +11,11 @@ def universities(request):
     }
 
     return render(request, 'home/universities.html', context)
+
+def university(request, id):
+    university = University.objects.get(id=id)
+    context = {
+        'uni': university,
+    }
+
+    return render(request, 'home/university.html', context)

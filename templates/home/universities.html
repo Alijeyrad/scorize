@@ -1,7 +1,7 @@
 {% extends 'layout/layout.html' %}
 {% load static %}
 
-{% block title %}List Of Universities{% endblock title %}
+{% block title %}لیست دانشگاه‌ها{% endblock title %}
 
 {% block body %}
     <div class="container mt-3">
@@ -18,11 +18,15 @@
                     <div class="card mb-3" style="max-width: 540px;">
                         <div class="row g-0">
                             <div class="col-md-4">
-                                <img src="{{uni.logo_pic.url}}" class="img-thumbnail rounded-start" alt="...">
+                                <a href="{% url 'home:university' uni.id %}">
+                                    <img src="{{uni.logo_pic.url}}" class="img-thumbnail rounded-start" alt="...">
+                                </a>
                             </div>
                         <div class="col-md-8">
                             <div class="card-body">
-                                <h5 class="card-title">{{uni.name}} ({{uni.acronym}})</h5>
+                                <a href="{% url 'home:university' uni.id %}" class="text-decoration-none text-black">
+                                    <h5 class="card-title">{{uni.name}} ({{uni.acronym}})</h5>
+                                </a>
                                 <p class="card-text">شهر: {{uni.city}}</p>
                                 <p class="card-text">کشور: {{uni.city.country.name}}</p>
                                 <p class="card-text">نوع: {{uni.uni_type}}</p>
