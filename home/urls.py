@@ -7,5 +7,4 @@ urlpatterns = [
     path('', universities, name='universities'),
     path('<int:id>', university, name='university'),
     path('<str:keyword>', filter_uni, name='filter'),
-    path('search', universities, name='search'),
 ]

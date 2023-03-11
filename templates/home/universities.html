@@ -15,7 +15,7 @@
         {% comment %} search {% endcomment %}
         <div class="card text-right bg-light mt-3">
             <div class="card-body ">
-                <form action="{% url 'home:search' %}" method="POST">
+                <form action="{% url 'home:universities' %}" method="POST">
                     {% csrf_token %}
                     <div class="mb-3">
                         <input type="text" class="form-control" id="search" name="search" placeholder="جستجو">
@@ -36,7 +36,9 @@
                         <a href="{% url 'home:filter' country.name %}" class="text-decoration-none text-black">
                             <input class="form-check-input" type="checkbox" id="{{country.name}}" {% if country.name == keyword %}checked{% endif %}>
                             <label class="form-check-label" for="{{country.name}}">
-                                {{country.name}}
+                                <a {% if country.name == keyword %}href="{% url 'home:filter' 'None' %}"{% else %}href="{% url 'home:filter' country.name %}"{% endif %} class="text-black text-decoration-none">
+                                    {{country.name}}
+                                </a>
                             </label>
                         </a>
                     </div>
