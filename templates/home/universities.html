@@ -4,5 +4,47 @@
 {% block title %}List Of Universities{% endblock title %}
 
 {% block body %}
-    
+    <div class="container mt-3">
+        
+        <div class="card text-center">
+            <div class="card-body fs-1">
+            لیست دانشگاه‌ها
+            </div>
+        </div>
+
+        <div class="row mt-3 mb-3">
+            {% for uni in universities %}
+                <div class="col-6 mb-3">
+                    <div class="card mb-3" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="{{uni.logo_pic.url}}" class="img-thumbnail rounded-start" alt="...">
+                            </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">{{uni.name}} ({{uni.acronym}})</h5>
+                                <p class="card-text">شهر: {{uni.city}}</p>
+                                <p class="card-text">کشور: {{uni.city.country.name}}</p>
+                                <p class="card-text">نوع: {{uni.uni_type}}</p>
+                                <p class="card-text">تعداد دانشجو: {{uni.total_students}}</p>
+                                <p class="card-text">تعداد دانشجوهای بین‌المللی: {{uni.international_students}}</p>
+                                <p class="card-text">سال تاسیس: {{uni.date_established.year}}</p>
+                                <p class="card-text"><small class="text-muted">وبسایت: <a target="_blank" class="text-left" href="{{uni.website}}">{{uni.website}}</a></small></p>
+                                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{uni.id}}" aria-expanded="false" aria-controls="collapse{{uni.id}}">
+                                    توضیحات
+                                </button>
+                                <p class="collapse card-text mt-3" id="collapse{{uni.id}}">
+                                    {{uni.overview}}
+                                </p>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+
 {% endblock body %}
