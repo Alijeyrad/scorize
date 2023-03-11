@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import University
+from .models import University, City, Country
 from django.core.paginator import Paginator
 from django.db.models import Q, F
 
@@ -7,6 +7,9 @@ from django.db.models import Q, F
 
 
 def universities(request):
+    cities = City.objects.all()
+    countries = Country.objects.all()
+
     if request.method == 'POST':
         # this is when user is searching
         search_word = request.POST.get('search')
@@ -30,6 +33,8 @@ def universities(request):
         context = {
             'page_obj': page_obj,
             'num_pages': number_of_pages_list,
+            'countries': countries,
+            'cities': cities
         }
 
         return render(request, 'home/universities.html', context)
@@ -47,9 +52,43 @@ def universities(request):
         context = {
             'page_obj': page_obj,
             'num_pages': number_of_pages_list,
+            'countries': countries,
+            'cities': cities
         }
 
         return render(request, 'home/universities.html', context)
+
+
+def filter_uni(request, keyword):
+    if keyword != 'None':
+        universities = University.objects.all().filter(
+            Q(city__name__contains=keyword)
+                
+            | Q(city__country__name__contains=keyword)
+        )
+    else:
+        universities = University.objects.all()
+
+    cities = City.objects.all()
+    countries = Country.objects.all()
+
+    paginator = Paginator(universities, 4) # Show 4 universities per page
+    page_number = request.GET.get('page')
+    # create page_obj that has the uni objects
+    page_obj = paginator.get_page(page_number)
+    # to have a list of numbers to create paginator in front
+    number_of_pages = page_obj.paginator.num_pages
+    number_of_pages_list = [x for x in range(1, number_of_pages + 1)]
+    
+    context = {
+        'page_obj': page_obj,
+        'num_pages': number_of_pages_list,
+        'countries': countries,
+        'cities': cities,
+        'keyword': keyword
+    }
+
+    return render(request, 'home/universities.html', context)
 
 
 # single university view
