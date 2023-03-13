@@ -32,30 +32,18 @@
                 <div class="col-6 col-md-3">
                     <h5>کشورها</h5>
                     {% for country in countries %}
-                    <div class="form-check d-inline-block mx-3">
-                        <a href="{% url 'home:filter' country.name %}" class="text-decoration-none text-black">
-                            <input class="form-check-input" type="checkbox" id="{{country.name}}" {% if country.name == keyword %}checked{% endif %}>
-                            <label class="form-check-label" for="{{country.name}}">
-                                <a {% if country.name == keyword %}href="{% url 'home:filter' 'None' %}"{% else %}href="{% url 'home:filter' country.name %}"{% endif %} class="text-black text-decoration-none">
-                                    {{country.name}}
-                                </a>
-                            </label>
+                        <a {% if country.name == keyword %}href="{% url 'home:filter' 'None' %}" class="btn btn-dark" {% else %} href="{% url 'home:filter' country.name %}" class="btn btn-outline-dark"{% endif %}>
+                            {{country.name}}
                         </a>
-                    </div>
                     {% endfor %}
                 </div>
                 
                 <div class="col-6 col-md-3">
                     <h5>شهرها</h5>
                     {% for city in cities %}
-                    <div class="form-check d-inline-block mx-3" style="z-index: -1;">
-                        <label class="form-check-label" for="{{city.name}}">
-                            <input class="form-check-input" type="checkbox" id="{{city.name}}" {% if city.name == keyword %}checked{% endif %}>
-                            <a {% if city.name == keyword %}href="{% url 'home:filter' 'None' %}"{% else %}href="{% url 'home:filter' city.name %}"{% endif %} class="text-black text-decoration-none">
-                                {{city.name}}
-                            </a>
-                        </label>
-                        </div>
+                        <a {% if city.name == keyword %}href="{% url 'home:filter' 'None' %}" class="btn btn-dark mb-2" {% else %} href="{% url 'home:filter' city.name %}" class="btn btn-outline-dark mb-2"{% endif %}>
+                            {{city.name}}
+                        </a>
                     {% endfor %}
                 </div>
             </div>
